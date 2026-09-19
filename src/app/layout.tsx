@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-svh flex flex-col bg-background text-foreground font-sans">
         <Header />
         <main className="flex-1">{children}</main>
-        <footer className="shrink-0">qwe</footer>
+        <footer className="shrink-0">footer</footer>
       </body>
     </html>
   );
