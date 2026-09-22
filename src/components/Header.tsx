@@ -17,21 +17,22 @@ const NAV_LINKS = [
   { href: "", label: "Тренировки" },
   { href: "", label: "О нас" },
 ];
+const NAV_LINKS_BUTTON = { name: "Личный кабинет", href: "/login" };
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md font-sans">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-8">
+      <div className="container mx-auto flex h-18 items-center justify-between px-4 md:px-8">
         <Link
           href="/"
-          className="text-xl font-bold tracking-tight text-emerald-500 hover:opacity-90 transition-opacity"
+          className="text-2xl font-bold tracking-tight text-emerald-500 hover:opacity-90 transition-opacity"
         >
           Kanaan<span className="text-foreground">Fit</span>
         </Link>
 
         {/* Desktop MENU */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-8 text-md font-medium">
           {NAV_LINKS.map((link) => (
             <Link
               href={link.href}
@@ -46,9 +47,9 @@ const Header = () => {
           <Button
             asChild
             variant="outline"
-            className="border-emerald-500/30 hover:border-emerald-500 hover:text-emerald-500"
+            className="border-emerald-500/30 hover:border-emerald-500 hover:text-emerald-500 h-12 px-8 text-md"
           >
-            <Link href="/">Личный кабинет</Link>
+            <Link href={NAV_LINKS_BUTTON.href}>{NAV_LINKS_BUTTON.name}</Link>
           </Button>
         </div>
 
@@ -57,7 +58,7 @@ const Header = () => {
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Открыть меню">
-                <Menu className="h-6 w-6" />
+                <Menu className="h-16 w-16" />
               </Button>
             </SheetTrigger>
 
@@ -90,10 +91,12 @@ const Header = () => {
               <div className="pt-6 border-t">
                 <Button
                   asChild
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-white"
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 border-emerald-600/80 text-white mb-6 text-lg shadow-md"
                   onClick={() => setIsOpen(false)}
                 >
-                  <Link href="/login">Личный кабинет</Link>
+                  <Link href={NAV_LINKS_BUTTON.href}>
+                    {NAV_LINKS_BUTTON.name}
+                  </Link>
                 </Button>
               </div>
             </SheetContent>
