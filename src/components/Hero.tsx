@@ -20,7 +20,7 @@ const Hero = () => {
 
   return (
     <section className="relative overflow-hidden bg-secondary/60 border border-border/50 rounded-3xl p-6 md:p-12 xl:p-16">
-      <div className="flex flex-col-reverse xl:flex-row items-center justify-center gap-10 lg:gap-12 xl:gap-16">
+      <div className="flex flex-col-reverse lg:flex-row items-center justify-center gap-10 lg:gap-12 xl:gap-30">
         <div className="flex flex-col items-start gap-6 max-w-xl">
           <div
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-700 

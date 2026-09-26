@@ -12,10 +12,10 @@ import {
 import { Menu } from "lucide-react";
 
 const NAV_LINKS = [
-  { href: "", label: "Главная" },
-  { href: "", label: "Курсы" },
-  { href: "", label: "Тренировки" },
-  { href: "", label: "О нас" },
+  { href: "/", label: "Главная" },
+  { href: "/", label: "Курсы" },
+  { href: "/", label: "Тренировки" },
+  { href: "/", label: "О нас" },
 ];
 const NAV_LINKS_BUTTON = { name: "Личный кабинет", href: "/login" };
 
@@ -57,8 +57,13 @@ const Header = () => {
         <div className="flex md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Открыть меню">
-                <Menu className="h-16 w-16" />
+              <Button
+                asChild
+                variant="ghost"
+                size="icon"
+                aria-label="Открыть меню"
+              >
+                <Menu className="h-8 w-8" />
               </Button>
             </SheetTrigger>
 
@@ -77,7 +82,7 @@ const Header = () => {
                 <nav className="flex flex-col gap-4 text-center">
                   {NAV_LINKS.map((link) => (
                     <Link
-                      key={link.href}
+                      key={link.label}
                       href={link.href}
                       onClick={() => setIsOpen(false)}
                       className="text-xl font-medium text-muted-foreground transition-colors hover:text-foreground py-1"
