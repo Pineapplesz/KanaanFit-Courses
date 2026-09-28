@@ -29,7 +29,7 @@ const Diplomas = () => {
     },
   ];
   return (
-    <section className="bg-secondary/40 border border-border/50 rounded-3xl p-6 sm:p-8 lg:p-10">
+    <section className="bg-secondary/60 border border-border/50 rounded-3xl p-6 sm:p-8 lg:p-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* LEFT COLUMN*/}
         <div className="lg:col-span-7 flex flex-col gap-4">
