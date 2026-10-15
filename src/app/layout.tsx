@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { auth } from "@/auth";
 /*Main text */
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,15 +22,18 @@ export const metadata: Metadata = {
   description: "Красивое и здоровое тело под руководством реабилитолога",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const session = await auth();
   return (
     <html
       lang="ru"
       className={`${geistSans.variable} ${fontHeading.variable} h-full antialiased`}
     >
       <body className="min-h-svh flex flex-col bg-background text-foreground font-sans">
-        <Header />
+        <Header session={session} />
+
         <main className="flex-1">{children}</main>
+
         <Footer />
       </body>
     </html>

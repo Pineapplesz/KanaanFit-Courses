@@ -9,7 +9,19 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { Menu } from "lucide-react";
+import { LogOutIcon, Menu, User } from "lucide-react";
+import { Session } from "next-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { signOut } from "next-auth/react";
 
 const NAV_LINKS = [
   { href: "/", label: "Главная" },
@@ -19,8 +31,13 @@ const NAV_LINKS = [
 ];
 const NAV_LINKS_BUTTON = { name: "Личный кабинет", href: "/login" };
 
-const Header = () => {
+interface HeaderProps {
+  session: Session | null;
+}
+
+const Header = ({ session }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const user = session?.user;
   return (
     <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md font-sans">
       <div className="container mx-auto flex h-18 items-center justify-between px-4 md:px-8">
@@ -43,14 +60,73 @@ const Header = () => {
             </Link>
           ))}
         </nav>
+
+        {/* МОЯ  АВТОРИЗАЦИЯ*/}
+
         <div className="hidden md:flex items-center gap-4">
-          <Button
-            asChild
-            variant="outline"
-            className="border-emerald-500/30 hover:border-emerald-500 hover:text-emerald-500 h-12 px-8 text-md"
-          >
-            <Link href={NAV_LINKS_BUTTON.href}>{NAV_LINKS_BUTTON.name}</Link>
-          </Button>
+          {user ? (
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex items-center gap-2 h-auto py-1 px-3 rounded-full"
+                >
+                  <Avatar className="w-9 h-9">
+                    <AvatarImage
+                      src={user.image || ""}
+                      alt={user.name || "User"}
+                    />
+                    <AvatarFallback className="bg-emerald-500/10 text-emerald-700 font-semibold">
+                      {user.name?.[0] || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span className="hidden lg:flex text-sm font-medium truncate max-w-45">
+                    {user.name}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                sideOffset={8}
+                align="end"
+                className="w-56 p-2 rounded-2xl border-border/60 shadow-lg"
+              >
+                <div className="px-2 py-1.5 text-left">
+                  <p className="text-sm font-semibold leading-none truncate text-foreground">
+                    {user.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate mt-1">
+                    {user.email}
+                  </p>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    <Link href={"/dashboard"} className="flex items-center">
+                      <User className="mr-2 h-4 w-4" />
+                      Аккаунт
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="cursor-pointer text-destructive focus:text-destructive"
+                >
+                  <LogOutIcon className="mr-1 h-4 w-4" />
+                  Выйти
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button
+              asChild
+              variant="outline"
+              className="border-emerald-500/30 hover:border-emerald-500 hover:text-emerald-600 h-11 px-6 rounded-xl 
+              font-medium"
+            >
+              <Link href={NAV_LINKS_BUTTON.href}>{NAV_LINKS_BUTTON.name}</Link>
+            </Button>
+          )}
         </div>
 
         {/*BURGER MENU */}
