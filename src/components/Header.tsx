@@ -17,7 +17,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
@@ -48,7 +47,7 @@ const Header = ({ session }: HeaderProps) => {
           Kanaan<span className="text-foreground">Fit</span>
         </Link>
 
-        {/* Desktop MENU */}
+        {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 text-md font-medium">
           {NAV_LINKS.map((link) => (
             <Link
@@ -61,8 +60,7 @@ const Header = ({ session }: HeaderProps) => {
           ))}
         </nav>
 
-        {/* МОЯ  АВТОРИЗАЦИЯ*/}
-
+        {/* DESKTOP AUTH*/}
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <DropdownMenu modal={false}>
@@ -133,52 +131,103 @@ const Header = ({ session }: HeaderProps) => {
         <div className="flex md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button
-                asChild
-                variant="ghost"
-                size="icon"
-                aria-label="Открыть меню"
-              >
-                <Menu className="h-8 w-8" />
+              <Button variant="ghost" size="icon" aria-label="Открыть меню">
+                <Menu className="h-7 w-7" />
               </Button>
             </SheetTrigger>
 
             <SheetContent
               side="right"
-              className="w-[300px] sm:w-[350px] flex flex-col justify-between"
+              className="w-[300px] sm:w-[350px] p-6 flex flex-col justify-between"
             >
-              <div>
-                <SheetHeader className="text-left mb-6">
-                  <SheetTitle className="text-xl font-bold text-emerald-500 text-center">
-                    KanaanFit
+              {/* LOGO */}
+              <div className="flex flex-col gap-6">
+                <SheetHeader className="text-left p-0">
+                  <SheetTitle className="text-xl font-bold tracking-tight text-emerald-600">
+                    Kanaan<span className="text-foreground">Fit</span>
                   </SheetTitle>
                 </SheetHeader>
 
-                {/* burger menu */}
-                <nav className="flex flex-col gap-4 text-center">
+                {/* USER CARD(IF AUTH ON) */}
+                {user ? (
+                  <div className="flex items-center gap-3 p-3 rounded-2xl bg-muted/50 border border-border/60">
+                    <Avatar className="h-11 w-11 border border-border/50">
+                      <AvatarImage
+                        src={user.image || ""}
+                        alt={user.name || "User"}
+                      />
+                      <AvatarFallback className="bg-emerald-500/10 text-emerald-700 font-semibold text-sm">
+                        {user.name?.[0] || "U"}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col min-w-0 flex-1">
+                      <span className="font-semibold text-sm truncate text-foreground">
+                        {user.name}
+                      </span>
+                      <span
+                        className="text-xs text-muted-foreground truncate"
+                        title={user.email || ""}
+                      >
+                        {user.email}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-xs text-muted-foreground -mt-3">
+                    Тренировки и реабилитация онлайн
+                  </p>
+                )}
+
+                {/* navigation */}
+                <nav className="flex flex-col gap-1">
                   {NAV_LINKS.map((link) => (
                     <Link
                       key={link.label}
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="text-xl font-medium text-muted-foreground transition-colors hover:text-foreground py-1"
+                      className="flex items-center h-11 px-3 rounded-xl text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
                     >
                       {link.label}
                     </Link>
                   ))}
+
+                  {/* if login add button */}
+                  {user && (
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-2.5 h-11 px-3 rounded-xl text-base font-semibold text-emerald-600 hover:bg-emerald-500/10 transition-colors mt-2"
+                    >
+                      <User className="w-5 h-5" />
+                      <span>Личный кабинет</span>
+                    </Link>
+                  )}
                 </nav>
               </div>
 
-              <div className="pt-6 border-t">
-                <Button
-                  asChild
-                  className="w-full bg-emerald-500 hover:bg-emerald-600 border-emerald-600/80 text-white mb-6 text-lg shadow-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <Link href={NAV_LINKS_BUTTON.href}>
-                    {NAV_LINKS_BUTTON.name}
-                  </Link>
-                </Button>
+              {/* 3. bottom button login/logout */}
+              <div className="pt-4 border-t border-border/60">
+                {user ? (
+                  <Button
+                    variant="outline"
+                    className="w-full justify-center gap-2 h-11 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive border-destructive/20 font-medium cursor-pointer"
+                    onClick={() => {
+                      setIsOpen(false);
+                      signOut({ callbackUrl: "/" });
+                    }}
+                  >
+                    <LogOutIcon className="w-4 h-4" />
+                    <span>Выйти из аккаунта</span>
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-11 rounded-xl font-medium shadow-sm"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Link href="/api/auth/signin">Войти через Google</Link>
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>

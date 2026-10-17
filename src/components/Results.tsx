@@ -57,7 +57,7 @@ const Results = () => {
   return (
     <section className="bg-secondary/60 border border-border/50 rounded-3xl p-6 sm:p-8 lg:p-10">
       <div className="flex flex-col gap-8 md:gap-10">
-        {/* ЗАГОЛОВОК */}
+        {/* LOGO */}
         <div className="flex flex-col items-start gap-2">
           <div className="inline-flex items-center gap-2 py-1 px-3 border border-emerald-500/20 rounded-full bg-emerald-500/10 text-primary text-xs sm:text-sm font-medium">
             <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -68,7 +68,7 @@ const Results = () => {
           </h2>
         </div>
 
-        {/* ПЕРЕКЛЮЧАТЕЛЬ ВКЛАДОК (Чистый, без багов Radix) */}
+        {/* TAB SWITCHER */}
         <div className="flex items-center gap-2 bg-background border border-border/60 p-1.5 rounded-2xl self-start">
           <button
             type="button"
@@ -95,7 +95,7 @@ const Results = () => {
           </button>
         </div>
 
-        {/* ЕДИНАЯ СЕТКА КАРТИНОК (Не дублируется 2 раза!) */}
+        {/* GALLERY */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {currentList.map((item, index) => (
             <div
@@ -107,6 +107,7 @@ const Results = () => {
                 src={item.src}
                 alt={item.alt}
                 fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className={`${activeTab === "reviews" ? "object-cover" : "object-contain"} transition-transform duration-300`}
               />
             </div>
@@ -150,6 +151,7 @@ const Results = () => {
               src={currentList[currentIndex]?.src || "/image/Hero.JPG"}
               alt="Увеличенный просмотр"
               fill
+              sizes="(max-width: 1024px) 95vw, 896px"
               className="object-contain"
               priority
             />
@@ -187,6 +189,7 @@ const Results = () => {
                   src={item.src}
                   alt="Миниатюра"
                   fill
+                  sizes="80px"
                   className="object-cover"
                 />
               </button>
