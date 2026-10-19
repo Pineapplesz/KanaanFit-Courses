@@ -205,7 +205,7 @@ const Header = ({ session }: HeaderProps) => {
                 </nav>
               </div>
 
-              {/* 3. bottom button login/logout */}
+              {/* bottom button login/logout */}
               <div className="pt-4 border-t border-border/60">
                 {user ? (
                   <Button
