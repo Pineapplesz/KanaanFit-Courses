@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const RegisterScheme = z.object({
+export const RegisterSchema = z.object({
   name: z
     .string()
     .min(2, { message: "Имя должно содержать минимум 2 буквы" })
@@ -13,4 +13,11 @@ export const RegisterScheme = z.object({
     .min(6, { message: "Пароль должен быть не менее 6 символов" }),
 });
 
-export type RegisterInput = z.infer<typeof RegisterScheme>;
+export type RegisterInput = z.infer<typeof RegisterSchema>;
+
+export const LoginSchema = z.object({
+  email: z.string().email({ message: "Введите корректный email" }),
+  password: z.string().min(1, { message: "Введите пароль" }),
+});
+
+export type LoginInput = z.infer<typeof LoginSchema>;

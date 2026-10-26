@@ -8,6 +8,9 @@ import bcrypt from "bcryptjs";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   secret: process.env.AUTH_SECRET,
+  pages: {
+    signIn: "/login",
+  },
   session: {
     strategy: "jwt",
   },

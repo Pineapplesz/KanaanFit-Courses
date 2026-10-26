@@ -1,12 +1,12 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { RegisterScheme, type RegisterInput } from "@/lib/schemas";
+import { RegisterSchema, type RegisterInput } from "@/lib/schemas";
 import bcrypt from "bcryptjs";
 
 export async function registerUser(value: RegisterInput) {
   /* 1 validate fields?*/
-  const validatedFields = RegisterScheme.safeParse(value);
+  const validatedFields = RegisterSchema.safeParse(value);
 
   if (!validatedFields.success) {
     return { error: "Некорректно заполнены поля формы" };
