@@ -86,7 +86,7 @@ export default async function Courses() {
               <Button asChild size={"lg"} className="w-full">
                 <Link href={`/courses/${course.slug}`}>
                   <span>Подробнее о курсе</span>
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform"></ArrowRight>
+                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>

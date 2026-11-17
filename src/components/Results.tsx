@@ -153,7 +153,6 @@ const Results = () => {
               fill
               sizes="(max-width: 1024px) 95vw, 896px"
               className="object-contain"
-              priority
             />
             <button
               onClick={handlePrev}

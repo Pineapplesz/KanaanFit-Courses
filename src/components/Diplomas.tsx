@@ -1,4 +1,3 @@
-import { Button } from "./ui/button";
 import { ChevronRight, FileText } from "lucide-react";
 import {
   Dialog,
@@ -84,12 +83,13 @@ const Diplomas = () => {
                       {img.title}
                     </span>
                     <div
-                      className="relative w-full md:aspect-[4/3] aspect-[5/4] rounded-xl overflow-hidden border 
+                      className="relative w-full aspect-[5/4] md:aspect-[4/3]  rounded-xl overflow-hidden border 
                     border-border/40 bg-muted/20"
                     >
                       <Image
                         src={img.src}
                         alt={img.alt}
+                        sizes="(max-width: 1024px) 95vw, 850px"
                         fill
                         className="object-contain"
                       />
